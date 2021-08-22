@@ -1,6 +1,6 @@
 import random as rd
 
-jogadas = ["Pedra", "Papel", "Tesoura"]
+jogadasLista = ["Pedra", "Papel", "Tesoura"]
 jogadaComputador = rd.randint(0,2)
 jogadaPlayer = 0
 placarPlayer = 0
@@ -8,12 +8,32 @@ placarComputador = 0
 
 print("########################################################")
 
-def game():
-    global jogadaPlayer
+def jogadas():
+    print()
     print ("1 - Pedra")
     print ("2 - Papel")
     print ("3 - Tesoura")
-    jogadaPlayer = int(input("Digite sua jogada: ")) - 1
+    print()
+
+def game():
+    global jogadaPlayer
+    jogadas()
+    jogadaPlayer = input("Digite sua jogada: ")
+    verificaJogada()
+
+def verificaJogada():
+    global jogadaPlayer
+    if jogadaPlayer.isnumeric():
+        jogadaPlayer = int(jogadaPlayer) - 1
+        while jogadaPlayer < 0 or jogadaPlayer > 2:
+            jogadas()
+            jogadaPlayer = int(input("Digite um número de 1 a 3 para escolher sua jogada: ")) - 1
+        else:
+            verificaVitoria()
+    else:
+        jogadas()
+        jogadaPlayer = input("Digite apenas números: ")
+        verificaJogada()
 
 def verificaVitoria():
     global jogadaComputador
@@ -22,8 +42,8 @@ def verificaVitoria():
     global placarComputador
 
     print ()
-    print ("Você jogou: ",jogadas[jogadaPlayer])
-    print ("O computador jogou: ",jogadas[jogadaComputador])
+    print ("Você jogou: ",jogadasLista[jogadaPlayer])
+    print ("O computador jogou: ",jogadasLista[jogadaComputador])
     print ()
 
 #   Player joga pedra;
@@ -60,4 +80,3 @@ def verificaVitoria():
             print ("Empate.")
 
 game()
-verificaVitoria()
