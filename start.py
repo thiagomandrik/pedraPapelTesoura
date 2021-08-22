@@ -15,6 +15,37 @@ def jogadas():
     print ("3 - Tesoura")
     print()
 
+
+
+def jogarNovamente():
+    def novamente():
+        print()
+        print("1 - Jogar Novamente")
+        print("2 - Sair")
+    novamente()
+    replay = input("Deseja jogar novamente? ")
+    if replay.isnumeric():
+        replay = int(replay)
+        if replay < 1 or replay > 2:
+            jogarNovamente()
+        else:
+            game()
+    else:
+        novamente()
+        replay = input("Digite apenas números: ")
+        jogarNovamente()
+
+def placar():
+    print()
+    print("---------------------------------------------")
+    print("--                                         --")
+    print("--          Seu placar: ", placarPlayer, "                --")
+    print("--       Placar do computador: ", placarComputador, "         --")
+    print("--                                         --")
+    print("---------------------------------------------")
+    print()
+    jogarNovamente()
+
 def game():
     global jogadaPlayer
     jogadas()
@@ -25,9 +56,10 @@ def verificaJogada():
     global jogadaPlayer
     if jogadaPlayer.isnumeric():
         jogadaPlayer = int(jogadaPlayer) - 1
-        while jogadaPlayer < 0 or jogadaPlayer > 2:
+        if jogadaPlayer < 0 or jogadaPlayer > 2:
             jogadas()
-            jogadaPlayer = int(input("Digite um número de 1 a 3 para escolher sua jogada: ")) - 1
+            jogadaPlayer = input("Digite um número de 1 a 3 para escolher sua jogada: ")
+            verificaJogada()
         else:
             verificaVitoria()
     else:
@@ -50,33 +82,42 @@ def verificaVitoria():
     if jogadaPlayer == 0:
         if jogadaComputador == 0:
             print ("Empate.")
+            placar()
         elif jogadaComputador == 1:
             print ("Computador venceu!")
             placarComputador += 1
+            placar()
         else:
             print ("Jogador venceu!")
             placarPlayer += 1
+            placar()
 
 #   Player joga Papel;
     elif jogadaPlayer == 1:
         if jogadaComputador == 0:
             print ("Jogador venceu!")
             placarPlayer += 1
+            placar()
         elif jogadaComputador == 1:
             print ("Empate.")
+            placar()
         else:
             print ("Computador venceu!")
             placarComputador += 1
+            placar()
 
 ##  Player joga tesoura
     elif jogadaPlayer == 2:
         if jogadaComputador == 0:
             print ("Computador venceu!")
             placarComputador += 1
+            placar()
         elif jogadaComputador == 1:
             print ("Jogador venceu!")
             placarPlayer += 1
+            placar()
         else:
             print ("Empate.")
+            placar()
 
 game()
