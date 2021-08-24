@@ -1,12 +1,10 @@
 import random as rd
 
 jogadasLista = ["Pedra", "Papel", "Tesoura"]
-jogadaComputador = rd.randint(0,2)
+jogadaComputador = 0
 jogadaPlayer = 0
 placarPlayer = 0
 placarComputador = 0
-
-print("########################################################")
 
 def jogadas():
     print()
@@ -15,25 +13,22 @@ def jogadas():
     print ("3 - Tesoura")
     print()
 
-
-
-def jogarNovamente():
+def jogarNovamente(x):
     def novamente():
         print()
         print("1 - Jogar Novamente")
         print("2 - Sair")
-    novamente()
-    replay = input("Deseja jogar novamente? ")
-    if replay.isnumeric():
-        replay = int(replay)
-        if replay < 1 or replay > 2:
-            jogarNovamente()
-        else:
+    if x.isnumeric():
+        x = int(x)
+        if x < 1 or x > 2:
+            novamente()
+            jogarNovamente(input("Digite apenas números entre 1 e 2: "))
+        elif x == 1:
             game()
+        else:
+            quit()
     else:
-        novamente()
-        replay = input("Digite apenas números: ")
-        jogarNovamente()
+        jogarNovamente(input("Digite apenas números: "))
 
 def placar():
     print()
@@ -44,10 +39,17 @@ def placar():
     print("--                                         --")
     print("---------------------------------------------")
     print()
-    jogarNovamente()
+    print("1 - Jogar Novamente")
+    print("2 - Sair")
+    jogarNovamente(input("Deseja jogar novamente? "))
 
 def game():
     global jogadaPlayer
+    print("###############################")
+    print("##                           ##")
+    print("##  Pedra - Papel - Tesoura  ##")
+    print("##                           ##")
+    print("###############################")
     jogadas()
     jogadaPlayer = input("Digite sua jogada: ")
     verificaJogada()
@@ -72,7 +74,7 @@ def verificaVitoria():
     global jogadaPlayer
     global placarPlayer
     global placarComputador
-
+    jogadaComputador = rd.randint(0,2)
     print ()
     print ("Você jogou: ",jogadasLista[jogadaPlayer])
     print ("O computador jogou: ",jogadasLista[jogadaComputador])
